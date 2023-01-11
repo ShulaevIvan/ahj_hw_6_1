@@ -1,0 +1,141 @@
+.column {
+    background-color: whitesmoke;
+    border-radius: 4px;
+    min-width: 400px;
+    max-width: 33%;
+}
+.app-container {
+    display: flex;
+    flex-direction: row;
+    width: 1280px;
+    height: 700px;
+}
+.column-todo, .column-progress, .column-done {
+    width: 33%;
+    border: 1px solid black;
+    margin: 0 10px;
+    position: relative;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+.column-header {
+    min-height: 20px;
+    text-align: left;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+.add-block {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+.card-wrap {
+    width: 100%;
+}
+.card-body {
+    margin: 10px 0;
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+}
+.card-body input {
+    width: 92%;
+    border: 0;
+    min-height: 50px;
+}
+.card-btn-block {
+    margin: 10px 0px;
+}
+.close-btn::before {
+    margin: 0 10px;
+    content: '\2A2F';
+    font-size: 16px;
+}
+
+.card:hover {
+    cursor: grab;
+}
+
+.popup {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    z-index: 100;
+}
+  
+  .popup::before {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: -1;
+}
+  
+.popup__window {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    padding: 0 18px;
+    min-width: 250px;
+    min-height: 80px;
+    padding: 10px;
+    z-index: 3;
+    /* border: 1px solid black; */
+    background-color: white;
+    box-shadow: 0px 0px 8px 5px rgba(34, 60, 80, 0.2);
+}
+  
+.popup_hidden {
+    display: none;
+}
+
+.card {
+    border: 1px solid;
+    min-height: 50px;
+    padding: 5px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    margin: 10px 0;
+    width: 96.7%;
+    max-width: 400px;
+    background-color: white;
+    z-index: 99;
+}
+.card-content {
+    pointer-events: none;
+}
+.rm-card:before {
+    top: 0;
+    margin: 0 10px;
+    position: absolute;
+    content: '\2A2F';
+    font-size: 16px;
+    right: 0;
+    z-index: 1;
+}
+
+.card.dragged {
+    width: 92%;
+    z-index: 99;
+    position: absolute;
+}
+
+.task-content {
+    max-width: 500px;
+    max-height: 500px;
+    width: 300px;
+    height: 150px;
+}

@@ -38,7 +38,6 @@ class Popup {
                 this.draggedElement.classList.add('dragged');
                 document.documentElement.addEventListener('mousemove', this.onMouseOver);
             }
-           
         }
 
         this.onMouseOver = (e) => {
@@ -59,7 +58,9 @@ class Popup {
                 });
 
                 if (e.target.classList.contains('card')) {
-                    e.target.parentNode.insertBefore(this.draggedElement, e.target)
+                    console.log(this.allCards)
+                    const currentCard = this.allCards.find((card) => card.id == e.target.getAttribute('cardId'));
+                    e.target.parentNode.insertBefore(this.draggedElement, currentCard.tag);
                 } else if (e.target.classList.contains('column')) {
                     e.target.appendChild(this.draggedElement);
                 }
@@ -68,7 +69,7 @@ class Popup {
                 this.draggedElement.style.removeProperty('left');
                 this.draggedElement.style.removeProperty('position');
                 this.draggedElement.classList.remove('dragged');
-                this.allCards.forEach((item) => item.id );
+                // this.allCards.forEach((item) => item.id);
                 this.draggedElement = undefined;
                 document.documentElement.removeEventListener('mousemove', this.onMouseOver);
                 document.body.style.cursor = 'default';
@@ -121,8 +122,8 @@ class Popup {
     removeCard(target) {
         const column = target.parentNode.parentNode;
         const targetCardId = target.parentNode.getAttribute('cardId');
-        column.querySelectorAll('.card').forEach((card) => card.remove());
         this.allCards = this.allCards.filter((item) => item.id != targetCardId);
+        document.querySelectorAll('.card').forEach((card) => card.remove());
         this.allCards.forEach((item) => {
             item.column.appendChild(item.tag);
         });

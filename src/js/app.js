@@ -31,6 +31,7 @@ class Popup {
             if (e.target.classList.contains('card')) {
                 document.body.style.cursor = 'grabbing';
                 this.draggedElement = e.target;
+                this.draggedElement.style.position = 'fixed';
                 this.draggedElement.style.top = e.y / this.draggedElement.style.height + "px";
                 this.draggedElement.style.left = e.x / this.draggedElement.style.width + "px";
                 this.draggedElementId = this.draggedElement.getAttribute('cardId');
@@ -48,14 +49,24 @@ class Popup {
         }
 
         this.onMouseUp = (e) => {
+            let column;
             if (this.draggedElement != undefined && !e.target.classList.contains('rm-card')) {
                 this.allCards.forEach((card) => {
-                    if (card.id == this.draggedElement.getAttribute('cardId')) card.column = e.target;
+                    if (card.id == this.draggedElement.getAttribute('cardId')) {
+                        card.column = e.target;
+                        column = card.column
+                    }
                 });
-                console.log(e.target)
-                e.target.appendChild(this.draggedElement);
+
+                if (e.target.classList.contains('card')) {
+                    e.target.parentNode.insertBefore(this.draggedElement, e.target)
+                } else if (e.target.classList.contains('column')) {
+                    e.target.appendChild(this.draggedElement);
+                }
+
                 this.draggedElement.style.removeProperty('top');
                 this.draggedElement.style.removeProperty('left');
+                this.draggedElement.style.removeProperty('position');
                 this.draggedElement.classList.remove('dragged');
                 this.allCards.forEach((item) => item.id );
                 this.draggedElement = undefined;
@@ -120,7 +131,6 @@ class Popup {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    const mainContainer = document.querySelector('.app-container');
     const addCardBtn = document.querySelectorAll('.add-card');
     const popup = new Popup('#popup');
 

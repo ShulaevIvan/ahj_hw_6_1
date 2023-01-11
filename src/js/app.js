@@ -28,33 +28,39 @@ class Popup {
         });
 
         this.draggedEvent = (e) => {
-           this.draggedElement = e.target;
-           console.log(this.draggedElement)
-           this.draggedElement.style.top = e.clientY + 'px';
-           this.draggedElement.style.left = e.clientX + 'px';
-           this.draggedElementId = this.draggedElement.getAttribute('cardId');
-           this.draggedElement.classList.add('dragged');
-           document.documentElement.addEventListener('mousemove', this.onMouseOver);
+            if (e.target.classList.contains('card')) {
+                document.body.style.cursor = 'grabbing';
+                this.draggedElement = e.target;
+                this.draggedElement.style.top = e.y / this.draggedElement.style.height + "px";
+                this.draggedElement.style.left = e.x / this.draggedElement.style.width + "px";
+                this.draggedElementId = this.draggedElement.getAttribute('cardId');
+                this.draggedElement.classList.add('dragged');
+                document.documentElement.addEventListener('mousemove', this.onMouseOver);
+            }
+           
         }
 
         this.onMouseOver = (e) => {
             if (this.draggedElement != undefined) {
-                this.draggedElement.style.top = e.clientY + 'px';
-                this.draggedElement.style.left = e.clientX + 'px';
+                this.draggedElement.style.top = e.y + "px";
+                this.draggedElement.style.left = e.x + "px";
             }
         }
 
         this.onMouseUp = (e) => {
             if (this.draggedElement != undefined && !e.target.classList.contains('rm-card')) {
+                this.allCards.forEach((card) => {
+                    if (card.id == this.draggedElement.getAttribute('cardId')) card.column = e.target;
+                });
                 console.log(e.target)
                 e.target.appendChild(this.draggedElement);
-                this.allCards = this.allCards.filter((item) => item.id != this.draggedElementId);
                 this.draggedElement.style.removeProperty('top');
                 this.draggedElement.style.removeProperty('left');
                 this.draggedElement.classList.remove('dragged');
-                this.allCards.forEach((item) => item.id )
+                this.allCards.forEach((item) => item.id );
                 this.draggedElement = undefined;
                 document.documentElement.removeEventListener('mousemove', this.onMouseOver);
+                document.body.style.cursor = 'default';
             }
         }
     }

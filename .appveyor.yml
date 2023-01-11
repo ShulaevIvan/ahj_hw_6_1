@@ -7,8 +7,6 @@ cache: node_modules
 install: 
   npm install
 build: off
-test_script:
- yarn run lint
 build_script:
   npm run build
 

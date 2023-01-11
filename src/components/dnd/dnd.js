@@ -48,20 +48,31 @@ export default class DragApp {
     };
 
     this.onMouseUp = (e) => {
-      let column;
       if (this.draggedElement !== undefined && !e.target.classList.contains('rm-card')) {
         this.allCards.forEach((card) => {
           if (card.id === this.draggedElement.getAttribute('cardId')) {
-            // eslint-disable-next-line
             card.column = e.target.closest('.column');
-            column = card.column;
           }
         });
 
         if (e.target.classList.contains('card')) {
           const currentCard = this.allCards.find((card) => card.id === e.target.getAttribute('cardId'));
-          e.target.parentNode.insertBefore(this.draggedElement, currentCard.tag);
-        } else if (e.target.classList.contains('column')) {
+          const column = e.target.parentNode;
+          column.insertBefore(this.draggedElement, currentCard.tag);
+          this.allCards.forEach((item) => {
+            if (item.id === this.draggedElement.getAttribute('cardId')) {
+              item.tag = currentCard.tag;
+              item.cardColumn = column.classList.value.replace('column', '');
+            }
+          });
+          localStorage.clear();
+          localStorage.setItem('cards', JSON.stringify(this.allCards));
+        } else if (e.target.classList.contains('column') && !e.target.classList.contains('card')) {
+          this.allCards.forEach((item) => {
+            if (this.draggedElement.getAttribute('cardId') === item.id) {
+              item.cardColumn = e.target.classList.value.replace('column', '');
+            }
+          });
           e.target.appendChild(this.draggedElement);
         }
 
@@ -73,6 +84,8 @@ export default class DragApp {
         document.documentElement.removeEventListener('mousemove', this.onMouseOver);
         document.body.style.cursor = 'default';
       }
+      localStorage.clear();
+      localStorage.setItem('cards', JSON.stringify(this.allCards));
     };
   }
 
@@ -110,18 +123,50 @@ export default class DragApp {
       id: cardId,
       tag: cardWrap,
       column: cardColumn,
+      cardColumn: cardColumn.classList.value.replace('column', ''),
+      inputValue: content,
     };
     this.allCards.push(retObj);
 
     cardWrap.setAttribute('cardId', cardId);
     closeBtn.addEventListener('click', this.removeCardEvent);
     cardColumn.appendChild(cardWrap);
+    localStorage.setItem('cards', JSON.stringify(this.allCards));
+  }
+
+  restoreCards(storageObj) {
+    const cardId = storageObj.id;
+    const columnSelector = `.${storageObj.cardColumn}`.replace(' ', '');
+    const cardColumn = document.querySelector(columnSelector);
+    const cardWrap = document.createElement('div');
+    const cardContent = document.createElement('span');
+    const closeBtn = document.createElement('span');
+    cardWrap.classList.add('card');
+    cardContent.classList.add('card-content');
+    closeBtn.classList.add('rm-card');
+    cardWrap.setAttribute('cardId', cardId);
+    cardContent.textContent = storageObj.inputValue;
+    cardWrap.appendChild(cardContent);
+    cardWrap.appendChild(closeBtn);
+    cardWrap.addEventListener('mousedown', this.draggedEvent);
+    closeBtn.addEventListener('click', this.removeCardEvent);
+    document.documentElement.addEventListener('mouseup', this.onMouseUp);
+    const retObj = {
+      id: cardId,
+      tag: cardWrap,
+      column: cardColumn,
+      cardColumn: columnSelector.replace('.', ''),
+      inputValue: storageObj.inputValue,
+    };
+    this.allCards.push(retObj);
+    document.querySelector(columnSelector).appendChild(cardWrap);
   }
 
   removeCard(target) {
     const column = target.parentNode.parentNode;
     const targetCardId = target.parentNode.getAttribute('cardId');
     this.allCards = this.allCards.filter((item) => item.id !== targetCardId);
+    localStorage.setItem('cards', JSON.stringify(this.allCards));
     document.querySelectorAll('.card').forEach((card) => card.remove());
     this.allCards.forEach((item) => {
       item.column.appendChild(item.tag);

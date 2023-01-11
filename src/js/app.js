@@ -52,13 +52,12 @@ class Popup {
             if (this.draggedElement != undefined && !e.target.classList.contains('rm-card')) {
                 this.allCards.forEach((card) => {
                     if (card.id == this.draggedElement.getAttribute('cardId')) {
-                        card.column = e.target;
-                        column = card.column
+                        card.column = e.target.closest('.column');
+                        column = card.column;
                     }
                 });
 
                 if (e.target.classList.contains('card')) {
-                    console.log(this.allCards)
                     const currentCard = this.allCards.find((card) => card.id == e.target.getAttribute('cardId'));
                     e.target.parentNode.insertBefore(this.draggedElement, currentCard.tag);
                 } else if (e.target.classList.contains('column')) {
@@ -69,10 +68,10 @@ class Popup {
                 this.draggedElement.style.removeProperty('left');
                 this.draggedElement.style.removeProperty('position');
                 this.draggedElement.classList.remove('dragged');
-                // this.allCards.forEach((item) => item.id);
                 this.draggedElement = undefined;
                 document.documentElement.removeEventListener('mousemove', this.onMouseOver);
                 document.body.style.cursor = 'default';
+                console.log(this.allCards)
             }
         }
     }
@@ -122,8 +121,9 @@ class Popup {
     removeCard(target) {
         const column = target.parentNode.parentNode;
         const targetCardId = target.parentNode.getAttribute('cardId');
-        this.allCards = this.allCards.filter((item) => item.id != targetCardId);
+        this.allCards = this.allCards.filter((item) => item.id !== targetCardId);
         document.querySelectorAll('.card').forEach((card) => card.remove());
+        console.log(this.allCards)
         this.allCards.forEach((item) => {
             item.column.appendChild(item.tag);
         });

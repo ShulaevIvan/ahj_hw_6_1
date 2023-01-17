@@ -1,19 +1,26 @@
-import DragApp from '../components/dnd/dnd';
+import CardManager from '../components/dnd/card';
+import   Cursor from '../components/dnd/dnd';
 
 window.addEventListener('DOMContentLoaded', () => {
-  const addCardBtn = document.querySelectorAll('.add-card');
-  const dragApp = new DragApp('#popup');
-  const storage = JSON.parse(localStorage.getItem('cards'));
-  if (storage) {
-    for (const cardObj of storage) {
-      dragApp.restoreCards(cardObj);
+    const cardManager = new CardManager('.container');
+    const allBtn = document.querySelectorAll('.add-card-container');
+    const storage  = JSON.parse(localStorage.getItem('cards'));
+    if (storage) {
+        cardManager.restoreCardsStorage(storage)
     }
-  }
-  addCardBtn.forEach((item) => {
-    item.addEventListener('click', (e) => {
-      if (e.target.classList.contains('add-card')) {
-        dragApp.showPopup(e.target.parentNode.parentNode);
-      }
+
+    allBtn.forEach((item) => {
+        item.addEventListener('click' ,(e) => {
+            const card = cardManager.createCard('test', e.target);
+            e.preventDefault();
+        })
     });
-  });
-});
+   
+    // allBtn.forEach((item) => {
+    //     item.addEventListener('click' ,(e) => {
+    //         cardManager.removeCard()
+    //         e.preventDefault();
+    //     })
+    // })
+
+})

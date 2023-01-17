@@ -1,50 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Trello</title>
 </head>
 <body>
+<div class="container">
+    <div class="list-container">
+        <div class="list-top">
+            <h2>Todo</h2>
+            <div class="show-more"></div>
+        </div>
 
-    <div class="app-container">
-        <div class="column column-todo">
-            <div class="column-header">TODO</div>
-            <div class="add-block">
-                <a class="add-card" href="#">add another card</a>
+        <ul class="list todo-list">
+            <li class="list-item unmovable">No tasks</li>
+        </ul>
+        <div class="add-card-container">
+            <div class="block plus-block">
+                <i class="fas fa-lg fa-plus"></i>
             </div>
-        </div>
-        <div class="column column-progress">
-            <div class="column-header">IN PROGRESS</div>
-            <div class="add-block">
-                <a class="add-card" href="#">add another card</a>
-            </div>
-        </div>
-        <div class="column column-done">
-            <div class="column-header">DONE</div>
-            <div class="add-block">
-                <a class="add-card" href="#">add another card</a>
-            </div>
-            
+            <p class="padd" data-column="todo">Add another card</p>
         </div>
     </div>
 
-    <div id="popup" class="popup popup_hidden">
-        <div class="popup__window">
+    <div class="list-container">
+        <div class="list-top">
+            <h2>In Progress</h2>
+            <div class="show-more"></div>
+        </div>
 
-          <div class="card-wrap">
-            <div class="card-body">
-                <textarea class="task-content" type="text-area" placeholder="enter a title for this card"></textarea>
-                <div class="card-btn-block">
-                    <button class="card-btn">add</button>
-                    <span class="close-btn"></span>
-                </div>
+        <ul class="list progress-list">
+            <li class="list-item unmovable">No tasks</li>
+        </ul>
+        <div class="add-card-container">
+            <div class="block plus-block">
+                <i class="fas fa-lg fa-plus"></i>
             </div>
+            <p class="padd" data-column="progress">Add another card</p>
         </div>
-          
+    </div>
+
+    <div class="list-container">
+        <div class="list-top">
+            <h2>Done</h2>
+            <div class="show-more"></div>
         </div>
-      </div>
+
+        <ul class="list done-list">
+            <li class="list-item unmovable">No tasks</li>
+        </ul>
+        <div class="add-card-container">
+            <div class="block plus-block">
+                <i class="fas fa-lg fa-plus"></i>
+            </div>
+            <p class="padd" data-column="done">Add another card</p>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

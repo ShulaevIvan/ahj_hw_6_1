@@ -9,10 +9,8 @@ p {
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: flex-start;
-  width: calc(100% - 20px);
+  width: 80%;
   height: 100vh;
-  /*min-width: 320px;*/
-
 }
 
 .list-container {
@@ -22,8 +20,6 @@ p {
   max-width: 33%;
   box-sizing: border-box;
   flex: 1;
-  /* min-height: 180px;
-  height: 100vh; */
 }
 
 .list-container:last-child {
@@ -105,10 +101,6 @@ p {
   margin-bottom: 10px;
 }
 
-.list-item-hidden {
-
-}
-
 .icon-container {
   display: flex;
   flex-direction: row;
@@ -132,24 +124,8 @@ p {
 }
 
 .add-card-container:hover p, .add-card-container:hover .fa-plus {
-  color: #107ABB;
+  color: #333;
   cursor: pointer;
-}
-
-.color-coded {
-  width: 50px;
-  height: 10px;
-  margin-right: 5px;
-}
-
-.green-block {
-  background-color: green;
-
-}
-
-.red-block {
-  background-color: red;
-
 }
 
 .card-title-field {
@@ -179,15 +155,16 @@ p {
 .input-add-card {
   color: #fff;
   font-weight: 700;
-  background-color: #5CA84D;
-  border: 1px solid #5CA84D;
+  background-color: black;
+  border: 1px solid black;
   padding: 10px;
   box-sizing: border-box;
   margin-right: 15px;
 }
 
 .input-add-card:hover {
-  background-color: #4a863e;
+  background-color: white;
+  color: black;
   cursor: pointer;
 }
 
@@ -202,7 +179,6 @@ p {
 
 .dragged-on {
   width: 426px;
-  /* position: absolute; */
   background-color: #fff;
   color: black;
   box-sizing: border-box;
@@ -216,17 +192,9 @@ p {
   opacity: 0.6;
 }
 
-/*селекторы для скрывающегося пункта списка задач (работает только в таком порядке)*/
-
 .unmovable {
   width: 0!important;
   height: 0!important;
-  /* background-color: #fff; */
-  /* color: black; */
-  /* box-sizing: border-box; */
-  /* margin-bottom: 10px; */
-  /* padding: 10px; */
-  /* position: relative; */
   visibility: hidden;
   display: none;
 }

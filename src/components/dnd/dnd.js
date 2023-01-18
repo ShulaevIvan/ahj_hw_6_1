@@ -83,6 +83,7 @@ export default class CardManager {
   }
 
   createCard(contentValue, clickedTarget) {
+    if (clickedTarget.getAttribute('data-active') === 'false') return;
     const id = performance.now().toFixed();
     const li = document.createElement('li');
     const p = document.createElement('p');
@@ -115,6 +116,7 @@ export default class CardManager {
     this.allCards.push(cardObj);
     const formPlace = clickedTarget.closest('.list-container');
     this.showForm(formPlace, cardObj.form);
+    clickedTarget.setAttribute('data-active', false);
     return cardObj;
   }
 
@@ -208,7 +210,6 @@ export default class CardManager {
                     <div class="menu-block">
                       </div>
                   </div>`;
-    
     return form;
   }
 

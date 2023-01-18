@@ -29,7 +29,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const countForms = Array.from(document.querySelectorAll('.add-card'));
         if (countForms.length === 0) {
           btnAdd.setAttribute('data-active', true);
-          const card = cardManager.createCard('demo', e.target);
+          cardManager.createCard('demo', e.target);
         }
       } else if (btnCheck === 'true') {
         btnAdd.setAttribute('data-active', false);
